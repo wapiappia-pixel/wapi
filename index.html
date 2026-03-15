@@ -106,28 +106,37 @@ body{background:var(--bg);color:var(--text);font-family:'Nunito',sans-serif;min-
 
 /* Floating cart button */
 .float-btn-wrap{
-  position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
-  width:calc(100% - 32px);max-width:448px;z-index:100;
+  position:fixed;bottom:0;left:50%;transform:translateX(-50%);
+  width:100%;max-width:480px;z-index:100;
+  background:var(--surface);
+  border-top:1px solid var(--border);
+  padding:12px 16px 20px;
 }
 .float-cart-btn{
-  width:100%;padding:14px 20px;
-  background:var(--brand);color:#fff;
+  width:100%;padding:15px 20px;
+  background:#C8C8C8;color:#fff;
   border:none;border-radius:var(--radius);
   font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;
-  cursor:pointer;display:flex;align-items:center;justify-content:space-between;
-  box-shadow:0 4px 20px rgba(232,67,10,0.35);
-  transition:background 0.15s,transform 0.1s;
+  cursor:not-allowed;display:flex;align-items:center;justify-content:space-between;
+  transition:background 0.3s,box-shadow 0.3s,cursor 0.1s;
 }
-.float-cart-btn:hover{background:var(--brand-dark,#c0360a);}
-.float-cart-btn:active{transform:scale(0.98);}
-.float-cart-btn.hidden{display:none;}
+.float-cart-btn.active{
+  background:var(--wsp);cursor:pointer;
+  box-shadow:0 4px 16px rgba(37,211,102,0.3);
+}
+.float-cart-btn.active:hover{background:#1ebe5a;}
+.float-cart-btn.active:active{transform:scale(0.98);}
 .float-btn-left{display:flex;align-items:center;gap:10px;}
-.float-btn-badge{background:rgba(255,255,255,0.25);border-radius:99px;padding:2px 10px;font-size:13px;font-weight:800;}
+.float-btn-badge{
+  background:rgba(255,255,255,0.3);border-radius:99px;
+  padding:2px 10px;font-size:12px;font-weight:800;
+}
+.float-btn-label{font-size:15px;font-weight:800;}
 .float-btn-total{font-size:15px;font-weight:800;}
 
 /* Modal overlay */
 .modal-overlay{
-  position:fixed;inset:0;background:rgba(0,0,0,0.45);
+  position:fixed;inset:0;background:rgba(0,0,0,0.5);
   z-index:200;opacity:0;pointer-events:none;
   transition:opacity 0.25s;
 }
@@ -137,24 +146,71 @@ body{background:var(--bg);color:var(--text);font-family:'Nunito',sans-serif;min-
 .modal-sheet{
   position:fixed;bottom:0;left:50%;transform:translateX(-50%) translateY(100%);
   width:100%;max-width:480px;
-  background:var(--surface);
+  background:var(--bg);
   border-radius:20px 20px 0 0;
-  padding:0 16px 32px;
+  padding:0 0 32px;
   z-index:201;
   transition:transform 0.35s cubic-bezier(0.32,0.72,0,1);
-  max-height:90vh;overflow-y:auto;
+  max-height:92vh;overflow-y:auto;
 }
 .modal-sheet.open{transform:translateX(-50%) translateY(0);}
-.modal-handle{width:36px;height:4px;background:var(--border);border-radius:99px;margin:12px auto 16px;}
-.modal-title{font-size:16px;font-weight:900;color:var(--text);margin-bottom:14px;}
+.modal-handle{width:36px;height:4px;background:var(--border);border-radius:99px;margin:12px auto 0;}
 
-/* Modal summary */
-.modal-summary-item{display:flex;justify-content:space-between;align-items:flex-start;font-size:13px;font-weight:500;padding:5px 0;border-bottom:1px solid var(--border);gap:8px;}
-.modal-summary-item:last-of-type{border-bottom:none;}
-.modal-summary-mods{font-size:11px;color:var(--muted);margin-top:2px;}
-.modal-summary-total{display:flex;justify-content:space-between;font-weight:800;font-size:15px;padding:10px 0 14px;border-top:2px solid var(--border);margin-top:4px;}
+/* Modal header bar */
+.modal-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 16px 12px;
+  border-bottom:1px solid var(--border);
+  background:var(--surface);
+  position:sticky;top:0;z-index:1;
+}
+.modal-title{font-size:16px;font-weight:900;color:var(--text);display:flex;align-items:center;gap:8px;}
+.modal-close{
+  width:30px;height:30px;border-radius:50%;
+  border:none;background:var(--surface2);
+  color:var(--muted);font-size:18px;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  font-weight:400;line-height:1;
+}
+.modal-close:hover{background:var(--border);}
+
+/* Modal summary box */
+.modal-summary-box{
+  background:var(--brand-light);
+  border:1px solid rgba(232,67,10,0.15);
+  border-radius:var(--radius);
+  padding:12px 14px;
+  margin:14px 16px 0;
+}
+.modal-summary-label{font-size:10px;font-weight:800;color:var(--brand);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;}
+.modal-summary-item{display:flex;justify-content:space-between;align-items:flex-start;font-size:13px;font-weight:600;padding:4px 0;gap:8px;color:var(--text);}
+.modal-summary-mods{font-size:11px;font-weight:500;color:var(--muted);margin-top:2px;}
+.modal-summary-total{
+  display:flex;justify-content:space-between;align-items:center;
+  font-weight:800;font-size:15px;
+  border-top:1px solid rgba(232,67,10,0.2);
+  margin-top:6px;padding-top:10px;
+}
+.modal-summary-total span:first-child{color:var(--text);}
 .modal-summary-total span:last-child{color:var(--brand);}
-.modal-divider{height:1px;background:var(--border);margin:14px 0;}
+
+/* Modal form area */
+.modal-form{padding:14px 16px 0;}
+.modal-form-row{display:flex;gap:10px;}
+.modal-form-row .form-group{flex:1;}
+
+/* Modal send button */
+.modal-send-btn{
+  margin:16px 16px 0;
+  width:calc(100% - 32px);
+  padding:15px;background:var(--wsp);color:#fff;
+  border:none;border-radius:var(--radius);
+  font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;
+  transition:background 0.15s,transform 0.1s;
+}
+.modal-send-btn:hover{background:#1ebe5a;}
+.modal-send-btn:active{transform:scale(0.98);}
 
 /* Footer */
 .footer-wapi{margin-top:2.25rem;padding-top:1rem;border-top:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;gap:8px;}
@@ -203,16 +259,18 @@ body{background:var(--bg);color:var(--text);font-family:'Nunito',sans-serif;min-
   <div class="cat-group" id="cat-papas"></div>
   <div class="cat-group" id="cat-bebidas"></div>
 
-  <!-- Floating cart button -->
-  <div style="height:80px"></div><!-- spacer for fixed button -->
+  <!-- Spacer for fixed bottom bar -->
+  <div style="height:90px"></div>
+
+  <!-- Fixed bottom bar — always visible -->
   <div class="float-btn-wrap">
-    <button class="float-cart-btn hidden" id="float-btn" onclick="abrirModal()">
+    <button class="float-cart-btn" id="float-btn" onclick="handleFloatBtn()">
       <div class="float-btn-left">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        <span>Ver pedido</span>
-        <span class="float-btn-badge" id="float-count">0</span>
+        <span class="float-btn-label" id="float-label">Agrega un producto</span>
+        <span class="float-btn-badge" id="float-count" style="display:none">0</span>
       </div>
-      <span class="float-btn-total" id="float-total">$0</span>
+      <span class="float-btn-total" id="float-total"></span>
     </button>
   </div>
 
@@ -223,25 +281,36 @@ body{background:var(--bg);color:var(--text);font-family:'Nunito',sans-serif;min-
   <div class="modal-sheet" id="modal-sheet">
     <div class="modal-handle"></div>
 
-    <div class="modal-title">Tu pedido</div>
-    <div id="modal-resumen"></div>
-
-    <div class="modal-divider"></div>
-
-    <div class="form-group">
-      <label class="form-label">Tu nombre</label>
-      <input class="form-input" id="nombre" placeholder="Ej: Juan"/>
-    </div>
-    <div class="form-group">
-      <label class="form-label">Hora de retiro</label>
-      <input class="form-input" type="time" id="hora" value="13:00"/>
-    </div>
-    <div class="form-group" style="margin-bottom:16px">
-      <label class="form-label">Instruccion extra <span style="font-weight:500;color:var(--hint)">(opcional)</span></label>
-      <textarea class="form-textarea" id="instruccion" placeholder="Ej: alergico a mostaza, pagar con efectivo..."></textarea>
+    <div class="modal-header">
+      <div class="modal-title">Confirmar pedido</div>
+      <button class="modal-close" onclick="cerrarModal()">&#x2715;</button>
     </div>
 
-    <button class="btn-wsp" onclick="enviarPedido()">
+    <!-- Summary box -->
+    <div class="modal-summary-box">
+      <div class="modal-summary-label">Resumen</div>
+      <div id="modal-resumen"></div>
+    </div>
+
+    <!-- Form -->
+    <div class="modal-form">
+      <div class="modal-form-row">
+        <div class="form-group">
+          <label class="form-label">Tu nombre</label>
+          <input class="form-input" id="nombre" placeholder="Ej: Valentina"/>
+        </div>
+        <div class="form-group" style="max-width:130px">
+          <label class="form-label">Hora de retiro</label>
+          <input class="form-input" type="time" id="hora" value="13:00"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Instrucciones extra <span style="font-weight:500;color:var(--hint)">(opcional)</span></label>
+        <textarea class="form-textarea" id="instruccion" placeholder="Ej: Sin picante, extra salsa, alergia a..."></textarea>
+      </div>
+    </div>
+
+    <button class="modal-send-btn" onclick="enviarPedido()">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
       Confirmar y enviar por WhatsApp
     </button>
@@ -425,11 +494,15 @@ function renderSummary() {
   const floatBtn = document.getElementById('float-btn');
   const floatCount = document.getElementById('float-count');
   const floatTotal = document.getElementById('float-total');
+  const floatLabel = document.getElementById('float-label');
   const modalResumen = document.getElementById('modal-resumen');
 
   if (!keys.length) {
-    floatBtn.classList.add('hidden');
-    if (modalResumen) modalResumen.innerHTML = '<p class="cart-empty">No hay productos</p>';
+    floatBtn.classList.remove('active');
+    floatCount.style.display = 'none';
+    floatLabel.textContent = 'Agrega un producto';
+    floatTotal.textContent = '';
+    if (modalResumen) modalResumen.innerHTML = '';
     return;
   }
 
@@ -438,8 +511,7 @@ function renderSummary() {
     const p = allItems().find(x => x.id === id); if (!p) return;
     const item = cart[id];
     const sub = p.precio * item.qty;
-    total += sub;
-    totalQty += item.qty;
+    total += sub; totalQty += item.qty;
     let mods = [];
     if (item.extras.length) mods.push('+ ' + item.extras.join(', '));
     if (item.removes.length) mods.push('- sin ' + item.removes.join(', '));
@@ -448,15 +520,23 @@ function renderSummary() {
         <div>${item.qty}x ${p.nombre}</div>
         ${mods.length ? `<div class="modal-summary-mods">${mods.join(' | ')}</div>` : ''}
       </div>
-      <div style="font-weight:700;flex-shrink:0">$${sub.toLocaleString('es-CL')}</div>
+      <div style="font-weight:700;flex-shrink:0;color:var(--text)">$${sub.toLocaleString('es-CL')}</div>
     </div>`;
   });
-  html += `<div class="modal-summary-total"><span>Total</span><span>$${total.toLocaleString('es-CL')}</span></div>`;
+  html += `<div class="modal-summary-total"><span>Total del pedido</span><span>$${total.toLocaleString('es-CL')}</span></div>`;
 
   if (modalResumen) modalResumen.innerHTML = html;
-  floatBtn.classList.remove('hidden');
-  floatCount.textContent = totalQty;
+
+  floatBtn.classList.add('active');
+  floatCount.style.display = 'inline-block';
+  floatCount.textContent = totalQty + (totalQty === 1 ? ' item' : ' items');
+  floatLabel.textContent = 'Ver pedido';
   floatTotal.textContent = '$' + total.toLocaleString('es-CL');
+}
+
+function handleFloatBtn() {
+  if (!document.getElementById('float-btn').classList.contains('active')) return;
+  abrirModal();
 }
 
 function abrirModal() {
