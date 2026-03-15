@@ -416,6 +416,7 @@ function enviarPedido() {
   if (instruccion) lineas.push(`*Nota:* ${instruccion}`);
   lineas.push('', '_Pedido enviado via wapi_');
   window.open(`https://wa.me/${WSP_LOCAL}?text=${encodeURIComponent(lineas.join('\n'))}`, '_blank');
+  setTimeout(() => location.reload(), 500);
 }
 
 buildMenus();
